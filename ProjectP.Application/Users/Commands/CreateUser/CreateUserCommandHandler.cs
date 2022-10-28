@@ -3,6 +3,7 @@
 using ProjectP.Application.Core.Abstractions.Authentication;
 using ProjectP.Application.Core.Abstractions.Cryptography;
 using ProjectP.Application.Core.Abstractions.Data;
+using ProjectP.Domain.Entities;
 using ProjectP.Domain.Repositories;
 
 namespace ProjectP.Application.Users.Commands.CreateUser;
@@ -24,6 +25,20 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, strin
 
     public Task<string> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
+        var user = new User();
+        var bioBuilder = Biography.Builder(user);
+        bioBuilder = bioBuilder.WithAboutMe("a");
+        if (/*something*/ true)
+        {
+            bioBuilder = bioBuilder.ForBusiness("a", "b");
+        }
+        else
+        {
+            bioBuilder = bioBuilder.ForMedia("a", "b");
+        }
+
+        user.Biography = bioBuilder.Build();
+
         throw new NotImplementedException();
     }
 }
