@@ -5,8 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using ProjectP.Application.Core.Abstractions.Data;
 using ProjectP.Domain.Repositories;
 using ProjectP.Infrastructure.Persistence.Repositories;
+using ProjectP.Infrastructure.Persistence;
+using ProjectP.Domain.Services;
+using ProjectP.Infrastructure.Services;
 
-namespace ProjectP.Infrastructure.Persistence;
+namespace ProjectP.Infrastructure;
 
 public static class DependencyInjection
 {
@@ -16,10 +19,12 @@ public static class DependencyInjection
 
         services.AddScoped<IDbContext>(serviceProvider => serviceProvider.GetRequiredService<ApplicationDbContext>());
         services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<ApplicationDbContext>());
-        
+
         services.AddScoped<IPostRepository>(serviceProvider => serviceProvider.GetRequiredService<PostRepository>());
         services.AddScoped<IUserRepository>(serviceProvider => serviceProvider.GetRequiredService<UserRepository>());
         services.AddScoped<ISubscriptionRepository>(serviceProvider => serviceProvider.GetRequiredService<SubscriptionRepository>());
+
+        services.AddSingleton<IPostService, PostService>();
 
         return services;
     }
