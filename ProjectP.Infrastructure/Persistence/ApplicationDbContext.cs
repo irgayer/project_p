@@ -17,14 +17,14 @@ namespace ProjectP.Infrastructure.Persistence;
 
 public class ApplicationDbContext : DbContext, IDbContext, IUnitOfWork
 {
-    private readonly IDateTimeProvider _dateTimeProvider;
-    private readonly IMediator _mediator;
+    //private readonly IDateTimeProvider _dateTimeProvider;
+    //private readonly IMediator _mediator;
 
-    public ApplicationDbContext(DbContextOptions options, IDateTimeProvider dateTimeProvider, IMediator mediator)
+    public ApplicationDbContext(DbContextOptions options)
         : base()
     {
-        _dateTimeProvider = dateTimeProvider;
-        _mediator = mediator;
+        //_dateTimeProvider = dateTimeProvider;
+        //_mediator = mediator;
     }
 
     public new DbSet<TEntity> Set<TEntity>()
@@ -54,5 +54,10 @@ public class ApplicationDbContext : DbContext, IDbContext, IUnitOfWork
     void IDbContext.Remove<TEntity>(TEntity entity)
     {
         throw new NotImplementedException();
+    }
+
+    void IDbContext.SaveChanges()
+    {
+        this.SaveChanges();
     }
 }

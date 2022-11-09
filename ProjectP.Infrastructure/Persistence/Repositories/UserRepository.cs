@@ -42,6 +42,7 @@ public class UserRepository : IUserRepository
     public void Insert(User user)
     {
         _dbContext.Insert<User>(user);
+        _dbContext.SaveChanges();
     }
 
     public Task<bool> IsEmailUniqueAsync(string email)
