@@ -15,13 +15,13 @@ namespace ProjectP.Infrastructure.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private readonly IDbContext _dbContext;
-    private readonly IDateTimeProvider _dateTimeProvider;
+    private readonly ApplicationDbContext _dbContext;
+    //private readonly IDateTimeProvider _dateTimeProvider;
 
-    public UserRepository(IDbContext dbContext, IDateTimeProvider dateTimeProvider)
+    public UserRepository(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
-        _dateTimeProvider = dateTimeProvider;
+        //_dateTimeProvider = dateTimeProvider;
     }
 
     public Task<User?> GetUserByEmail(string email)
@@ -41,7 +41,7 @@ public class UserRepository : IUserRepository
 
     public void Insert(User user)
     {
-        _dbContext.Insert<User>(user);
+        _dbContext.Users.Add(user);
         _dbContext.SaveChanges();
     }
 

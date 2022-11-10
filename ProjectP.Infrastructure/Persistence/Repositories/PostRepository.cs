@@ -18,9 +18,9 @@ public class PostRepository : IPostRepository
 {
     //private readonly IDateTimeProvider _dateTimeProvider;
     //private readonly IMediator _mediator;
-    private IDbContext dbContext;
+    private ApplicationDbContext dbContext;
 
-    public PostRepository(IDbContext dbContext)
+    public PostRepository(ApplicationDbContext dbContext)
         : base()
     {
         this.dbContext = dbContext;
@@ -35,17 +35,20 @@ public class PostRepository : IPostRepository
 
     public async Task<Post> GetById(int id)
     {
-        return await dbContext.GetBydIdAsync<Post>(id);
+        return await dbContext.Posts.FirstOrDefaultAsync(post => post.Id == id);
     }
 
     public void Insert(Post post)
     {
-        throw new NotImplementedException();
+        post.CreatedAt = post.UpdatedAt = DateTime.Now;
+        dbContext.Posts.Add(post);
+        dbContext.SaveChanges();
     }
 
     public void Remove(Post post)
     {
-        throw new NotImplementedException();
+        dbContext.Posts.Remove(post);
+        dbContext.SaveChanges();
     }
 
     public void Update(Post post)

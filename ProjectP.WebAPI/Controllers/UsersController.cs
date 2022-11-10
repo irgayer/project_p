@@ -82,7 +82,7 @@ public class UsersController : ControllerBase
     private async Task<User?> AuthenticateAsync(UserLoginDTO dto)
     {
         var user = await userRepository.GetUserByEmail(dto.Email);
-        if (user != null)
+        if (user == null)
             return null;
         if (user?.Password != dto.Password)
             return null;

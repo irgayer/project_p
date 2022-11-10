@@ -20,12 +20,12 @@ public static class DependencyInjection
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
         });
 
-        services.AddScoped<IDbContext>(serviceProvider => serviceProvider.GetRequiredService<ApplicationDbContext>());
+        //services.AddScoped<IDbContext>(serviceProvider => serviceProvider.GetRequiredService<ApplicationDbContext>());
         //services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<ApplicationDbContext>());
-
-        services.AddScoped<IPostRepository>(serviceProvider => serviceProvider.GetRequiredService<PostRepository>());
-        services.AddScoped<IUserRepository>(serviceProvider => serviceProvider.GetRequiredService<UserRepository>());
-        services.AddScoped<ISubscriptionRepository>(serviceProvider => serviceProvider.GetRequiredService<SubscriptionRepository>());
+        services.AddScoped<IPostRepository, PostRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        //services.AddScoped<ISubscriptionRepository>(serviceProvider => serviceProvider.GetRequiredService<SubscriptionRepository>());
+        //services.AddScoped<ApplicationDbContext>();
 
         services.AddSingleton<IPostService, PostService>();
 

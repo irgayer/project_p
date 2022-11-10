@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 using ProjectP.Application.Core.Abstractions.Common;
 using ProjectP.Application.Core.Abstractions.Data;
+using ProjectP.Domain.Entities;
 using ProjectP.Domain.Primitives;
 
 using System;
@@ -15,49 +16,19 @@ using System.Threading.Tasks;
 
 namespace ProjectP.Infrastructure.Persistence;
 
-public class ApplicationDbContext : DbContext, IDbContext, IUnitOfWork
+public class ApplicationDbContext : DbContext
 {
     //private readonly IDateTimeProvider _dateTimeProvider;
     //private readonly IMediator _mediator;
 
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Biography> Biographies { get; set; }
+ 
     public ApplicationDbContext(DbContextOptions options)
-        : base()
+        : base(options)
     {
         //_dateTimeProvider = dateTimeProvider;
         //_mediator = mediator;
-    }
-
-    public new DbSet<TEntity> Set<TEntity>()
-            where TEntity : Entity
-            => base.Set<TEntity>();
-
-    public Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<TEntity?> GetBydIdAsync<TEntity>(int id) where TEntity : Entity
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Insert<TEntity>(TEntity entity) where TEntity : Entity
-    {
-        throw new NotImplementedException();
-    }
-
-    public void InsertRange<TEntity>(IReadOnlyCollection<TEntity> entities) where TEntity : Entity
-    {
-        throw new NotImplementedException();
-    }
-
-    void IDbContext.Remove<TEntity>(TEntity entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    void IDbContext.SaveChanges()
-    {
-        this.SaveChanges();
     }
 }
